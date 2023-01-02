@@ -1,0 +1,41 @@
+﻿@using TXTextControl.Web.MVC.DocumentViewer
+
+@model TXTextControl.DocumentServer.ESign.Models.SignProcess
+
+@{
+    ViewBag.Title = "Sign Document";
+    ViewBag.Signer = Model.Signer.Name;
+}
+
+<div style="height: calc(100vH - 56px);">
+
+@Html.TXTextControl().DocumentViewer(settings =>
+{
+    settings.DocumentPath = "App_Data/documentflows/"
+        + Model.EnvelopeId + "/template.tx";
+    settings.Dock = DocumentViewerSettings.DockStyle.Fill;
+    settings.SignatureSettings = new SignatureSettings() {
+        OwnerName = Model.Owner,
+        ShowSignatureBar = true,
+        SignerInitials = Model.Signer.Initials,
+        SignerName = Model.Signer.Name,
+        UniqueId = Model.EnvelopeId,
+        RedirectUrlAfterSignature = Url.Action("Sign", "Sign", new { signerId = Model.Signer.Id } , Context.Request.Scheme, null),
+        SignatureBoxes = new SignatureBox[] {
+            new SignatureBox(Model.Signer.SignatureFieldName) {
+                SigningRequired = true, Style = SignatureBox.SignatureBoxStyle.Signature }
+        }
+    };
+}).Render()
+
+</div>
+
+<script>
+    window.addEventListener("documentViewerLoaded", function () {
+        TXDocumentViewer.setSubmitCallback(finalize);
+    });
+
+    function finalize() {
+        alert("Thanks for signing! You can close this window.");
+    }
+</script>

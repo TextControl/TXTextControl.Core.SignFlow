@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32901.213
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tx-viewer-custom-signing", "tx-viewer-custom-signing.csproj", "{07CC8083-C149-44F2-9A6E-C5E4A7A30EC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07CC8083-C149-44F2-9A6E-C5E4A7A30EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07CC8083-C149-44F2-9A6E-C5E4A7A30EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07CC8083-C149-44F2-9A6E-C5E4A7A30EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07CC8083-C149-44F2-9A6E-C5E4A7A30EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C245EFD4-EF01-48A9-A63E-5BA7EE3812FC}
+	EndGlobalSection
+EndGlobal

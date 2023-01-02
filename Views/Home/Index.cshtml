@@ -1,0 +1,92 @@
+﻿@model List<TXTextControl.DocumentServer.ESign.Models.DocumentFlow>
+
+@using TXTextControl.Web.MVC.DocumentViewer
+
+@{
+    ViewBag.Title = "Overview";
+    ViewBag.Signer = "Document Owner";
+}
+
+    <div class="container mt-3">
+
+        <h2 class="mb-3 mt-5">Available Document Flows</h2>
+
+        <a class="btn btn-primary" href="@Url.Action("Index", "New")">New Flow</a>
+
+        <table class="table table-bordered table-hover mt-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Envelope Id</th>
+                    <th>Owner</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var envelope in Model)
+                {
+                    <tr data-toggle="collapse" data-target="#@envelope.EnvelopeId" class="clickable">
+                    <td>
+                        <a class="btn btn-sm btn-primary mx-2" href="@Url.Action("Remove", "New", new { id = envelope.EnvelopeId } )">Remove</a>
+                        @if (envelope.Closed == true)
+                        {
+                            <a target="_blank" class="btn btn-sm btn-success me-2" href="@Url.Action("Download", "New", new { id = envelope.EnvelopeId } )">Download</a>
+                        }
+                        <strong>@envelope.EnvelopeId</strong>
+                    </td>
+                    <td>@envelope.Owner</td>
+                    </tr>
+                    <tr>
+                        <td id="@envelope.EnvelopeId" class="" colspan="3">
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Share Link</th>
+                                        <th>Signed</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var signer in envelope.Signers)
+                                    {
+                                        <tr>
+                                            <td>@signer.Id</td>
+                                            <td>@signer.Name</td>
+                                            <td>@Html.ActionLink("Signature Link", "Index", "Sign", new { envelopeId = envelope.EnvelopeId, signerId = signer.Id }, new { target = "_blank" })</td>
+                                            <td>
+                                                @if (signer.SignatureComplete == true) {
+                                                <span style="color: green;">✅</span>
+                                            }
+                                                else {
+                                                <span style="color: red;">❌</span>
+                                            }
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    @if (System.IO.File.Exists("/App_Data/documentflows/" + envelope.EnvelopeId + "/signed.tx") == true)
+                                    {
+
+                                    <tr>
+                                        <td colspan="4">
+                                            <div style="height: 400px">
+                                                @Html.TXTextControl().DocumentViewer(settings =>
+                                                {
+                                                    settings.DocumentPath = "/App_Data/documentflows/" + envelope.EnvelopeId + "/signed.tx";
+                                                }).Render()
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>

@@ -1,0 +1,31 @@
+﻿@model List<TXTextControl.DocumentServer.ESign.Models.DocumentFlow>
+
+@{
+    ViewBag.Title = "New Flow";
+    ViewBag.Signer = "Document Owner";
+}
+
+@using TXTextControl.Web.MVC.DocumentViewer
+
+
+<div class="container mt-3">
+
+    <h2 class="mb-3 mt-5">New Document Flow</h2>
+
+    <div class="row">
+
+        <div class="col-6">
+
+            <form enctype="multipart/form-data" asp-controller="New" asp-action="Create" method="post">
+                <div class="form-group">
+                    <input name="document" type="file" class="form-control mb-3" id="document" />
+                    <input type="submit" class="btn btn-primary" value="Upload" />
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+

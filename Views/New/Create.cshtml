@@ -1,0 +1,71 @@
+﻿@model TXTextControl.DocumentServer.ESign.Models.DocumentFlow
+
+@{
+    ViewBag.Title = "New Flow";
+    ViewBag.Signer = "Document Owner";
+}
+
+@using TXTextControl.Web.MVC.DocumentViewer
+
+
+<div class="container mt-3">
+
+    <h2 class="mb-3 mt-5">Valid Document Uploaded</h2>
+
+    <h3>Envelope ID: <strong>@Model.EnvelopeId</strong></h3>
+    
+    <div class="row">
+
+        <div class="col-6 mt-5">
+
+            <form asp-route-id="@Model.EnvelopeId" asp-controller="New" asp-action="Add" method="post">
+            
+                <div class="form-group">
+                    <label>Document Owner</label>
+                    <input class="form-control" asp-for="@Model.Owner">
+                </div>
+
+                <h5 class="mt-3">Detected Unique SignatureFields (Signers)</h5>
+
+                @for (int i = 0; i <= Model.Signers.Count - 1; i++) {
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label>Signer ID</label>
+                                <input readonly class="form-control" asp-for="@Model.Signers[i].Id">
+                            </div>
+
+                            
+                            <div class="form-group">
+                                <label>SignatureField Name</label>
+                                <input readonly class="form-control" asp-for="@Model.Signers[i].SignatureFieldName">
+                            </div>
+
+                            <h6 class="card-subtitle mb-2 mt-2 text-muted">The following fields must be completed.</h6>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>Signer Name</label>
+                                    <input class="form-control" asp-for="@Model.Signers[i].Name">
+                                </div>
+                                <div class="col">
+                                    <label>Signer Initials</label>
+                                    <input class="form-control" asp-for="@Model.Signers[i].Initials">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <input type="submit" class="btn btn-primary" value="Create" />
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</div>
+
