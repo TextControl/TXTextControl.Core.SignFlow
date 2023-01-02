@@ -24,8 +24,6 @@ namespace tx_viewer_custom_signing.Controllers {
 
       [HttpPost]
       public IActionResult Sign([FromBody] SignatureData data, string signerId) {
-         
-         var test = data.SignedDocument.Document;
 
          DocumentFlow flow = new DocumentFlow(data.UniqueId);
          Signer signer = flow.Signers.Find(x => x.Id == signerId);
